@@ -1,3 +1,10 @@
+numero = int(input("digite um número: "))
+i = 0
+while i < numero:
+  print(numero)
+  numero -= 1
+  i += 1
+
 # 1. Adivinhação de números:
 #  • Crie uma lista com 10 números.
 #  • Peça ao usuário para adivinhar um número da lista.
