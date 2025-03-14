@@ -11,3 +11,11 @@
 #  6. Faça um programa que imprima todos os números de 5 a 0 usando o for.
 
 #  7. Faça um programa que peça para o usuário digitar um número n e imprima uma lista com todos os números de 0 a n-1
+
+# 8. Faça um programa que imprima o maior número da lista [-8, -6, 3, -1, 7], sem usar o método max(). 
+
+# 9. Faça um programa que imprima o maior número de uma lista, sem usar o método max(). 
+
+# 10. Agora, usando o método max(), faça um programa que imprima os três maiores números da lista [2, 9, -5, 2, -8, 4, -9, -5, 4, 1].
+
+#  11. Agora, usando o método max(), faça um programa que imprima os três maiores números de uma lista
