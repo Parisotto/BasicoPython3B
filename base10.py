@@ -21,3 +21,4 @@ lista = [8, 20, 50, 40, 1, 43, 32, 29, 47, 12, 9, 4]
 #  9. Pegue a lista gerada no exercício anterior e transforme cada um dos itens dessa lista em um float.
 
 #  10. Usando listas, faça um programa que peça as 4 notas bimestrais e mostre a média
+
