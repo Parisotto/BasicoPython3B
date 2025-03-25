@@ -20,3 +20,36 @@
 # 123 2000 3.0 2.0            10 anos.
 # 100000 110000 1.5 0.5       100 anos.
 # 62422 484317 3.1 1.0
+
+T = int(input("Digite quantos casos serão avaliados: "))
+vector = []
+for i in range(T):
+    PA,PB,G1,G2 = input("Digite os 4 valores PA PB G1 G2: ").split(" ")
+
+    PA = int(PA)
+    PB = int(PB)
+    G1 = float(G1)
+    G2 = float(G2)
+    
+    percentA = int(((PA * G1 )//100) + PA)
+    percentB = int(((PB * G2 )//100) + PB)
+ 
+    count = 0
+    while percentA <= percentB:
+        percentA = ((percentA * G1 )//100) + percentA
+        percentB = ((percentB * G2 )//100) + percentB
+        count+=1
+        if count > 100:
+            break
+    count+=1 
+    vector.append(count)
+
+print()
+print("=" * 20)
+for i in range(T):
+    if vector[i]>100:
+        print('Mais de 1 século.')
+    else:
+        print(f'{vector[i]} anos.')
+print("=" * 20)
+print()
