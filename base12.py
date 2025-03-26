@@ -4,7 +4,7 @@
 # O usuário deverá escolher quantos números irá apostar, sendo no mínimo 6 e no máximo 20 números de 1 a 60.
 # Lembre-se de que a lista final de escolhas não pode conter um valor repetido. 
 # Permita que o usuário continue fazendo outros jogos da Megasena até que ele digite 0 (zero) para parar. 
-# Ao final, mostre quanto o usário deverá pagar conforme o número de jogos e de palpites por jogo, conforme os valores abaixo:
+# Ao final, mostre quanto o usário deverá pagar conforme o número de jogos e de palpites por jogo, de acordo com os valores abaixo:
 
 # Números Escolhidos	Valor da Aposta
 # 6	                  R$ 5,00
