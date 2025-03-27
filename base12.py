@@ -93,4 +93,5 @@ def main():
   print(f"Total de jogos realizados: {total_jogos}")
   print(f"Total a pagarf: R$ {total_pagar:.2f}")
   print()
+  
 main()
