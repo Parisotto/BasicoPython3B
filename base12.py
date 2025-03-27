@@ -23,3 +23,74 @@
 # 19	                R$ 135.660,00
 # 20	                R$ 193.800,00
 
+import random
+
+def gerar_numeros(quantidade):
+  numeros = []
+  i = 1
+  while i <= quantidade:
+    numero = random.randint(1, 60)
+    if numero not in numeros:
+      numeros.append(numero)
+      i += 1
+
+  return sorted(numeros)
+
+def valor_aposta(quantidade):
+  valores = {
+     6: 5.00,
+     7: 35.00,
+     8: 140.00,
+     9: 420.00,
+    10: 1050.00,
+    11: 2310.00,
+    12: 4620.00,
+    13: 8580.00,
+    14: 15015.00,
+    15: 25025.00,
+    16: 4004.00,
+    17: 61880.00,
+    18: 92820.00,
+    19: 135660.00,
+    20: 193800.00
+  }
+  return valores.get(quantidade, 0)
+
+def main():
+  total_pagar = 0
+  total_jogos = 0
+  
+  print()
+  print("=" * 70)
+  print(" " * 31 + "MEGASENA")
+  print("=" * 70)
+  print()
+      
+  while True:
+    try:
+      quantidade = int(input("Quantos números deseja apostar? (6 a 20, ou 0 para sair): "))
+      if quantidade == 0:
+        break
+      if quantidade >= 6 and quantidade <= 20:
+        jogo = gerar_numeros(quantidade)
+        valor = valor_aposta(quantidade)
+        total_pagar += valor
+        total_jogos += 1
+        print(f"Seus núero: {jogo}")
+        print(f"Valor da aposta: R$ {valor:.2f}\n")
+      else:
+        print("Por favor, escolha um número entre 6 e 20.")
+
+    except ValueError:
+      print("Entrada inválida! Digite um número inteiro.")
+  
+  print()
+  print("=" * 70)
+  print(" " * 31 + "MEGASENA")
+  print("=" * 70)
+  print()
+
+  print(f"Total de jogos realizados: {total_jogos}")
+  print(f"Total a pagarf: R$ {total_pagar:.2f}")
+  print()
+main()
