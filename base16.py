@@ -1,8 +1,8 @@
 # CONJUNTO (set) X LISTA
 
-lista = []
-tupla = ()
-conjunto = {}
+lista = [] # ou list()
+tupla = () # ou tuple()
+conjunto = set()
 
 print(lista)
 print(tupla)
