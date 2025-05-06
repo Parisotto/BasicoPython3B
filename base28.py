@@ -22,6 +22,8 @@ def arquivo(op = 'r', contato = ''):
         return arq.readlines()
       elif op == 'a':
         arq.write(contato)
+      elif op == 'w':
+        arq.writelines(contato)
   except:
     return []
 
@@ -58,7 +60,37 @@ def buscar():
   
 def excluir():
   global indice_selecionado
+  if indice_selecionado is not None:
+    del agenda[indice_selecionado]
+    arquivo('w', agenda)
+    dados_lista_box()
+    entry_nome.delete(0, tk.END)
+    entry_celular.delete(0, tk.END)
+    entry_email.delete(0, tk.END)
+  else:
+    msg.showwarning("Aviso", "Selecione um contato para excluir")
 
+def editar():
+  global indice_selecionado
+  if indice_selecionado is not None:
+    nome = entry_nome.get()
+    celular = entry_celular.get()
+    email = entry_email.get()
+
+    if nome and celular and email:
+      agenda[indice_selecionado] = f"{nome} - {celular} - {email}\n"
+      arquivo('w', agenda)
+      dados_lista_box() 
+
+      entry_nome.delete(0, tk.END)
+      entry_celular.delete(0, tk.END)
+      entry_email.delete(0, tk.END)
+    else:
+      msg.showwarning("Aviso", "Preencha todos os campos para editar o contato")
+  else:
+    msg.showwarning("Aviso", "Selecione um contato para editar.")
+
+      
 
 def incluir():
   #contato = {}
@@ -88,8 +120,19 @@ def dados_lista_box():
 
 def selecionar_contato(event):
   global indice_selecionado
-  indice_selecionado = lista.curselection()[0]
-  print(indice_selecionado)
+  try:
+    indice_selecionado = lista.curselection()[0]
+  except:
+    print("Nada selecionado")
+
+  if indice_selecionado is not None:
+    contato = agenda[indice_selecionado].split(" - ")
+    entry_nome.delete(0, tk.END)
+    entry_nome.insert(0, contato[0])
+    entry_celular.delete(0, tk.END)
+    entry_celular.insert(0, contato[1])
+    entry_email.delete(0, tk.END)
+    entry_email.insert(0, contato[2])
 
 def interface():
   global entry_nome, entry_celular, entry_email, lista
@@ -117,7 +160,7 @@ def interface():
 
   botao_incluir = tk.CTkButton(frame_botoes, text="Incluir", command=incluir)
   botao_buscar = tk.CTkButton(frame_botoes, text="Buscar", command=buscar)
-  botao_editar = tk.CTkButton(frame_botoes, text='Editar')
+  botao_editar = tk.CTkButton(frame_botoes, text='Editar', command=editar)
   botao_excluir = tk.CTkButton(frame_botoes, text='Excluir', command=excluir)
 
   botao_incluir.grid(row=0, column=0, padx=10, pady=10)
