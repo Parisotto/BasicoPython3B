@@ -1,8 +1,13 @@
-import tkinter as tk
 from tkinter import messagebox as msg
+import customtkinter as tk
+from tkinter import Listbox
+
+#tk.set_appearance_mode('dark')
+tk.set_appearance_mode('light')
 
 janela = None
 agenda = []
+indice_selecionado = None
 
 def carga():
   global agenda
@@ -51,6 +56,9 @@ def buscar():
   else:
     msg.showerror("ERRO", "Digite nome ou celular ou email para ser buscado")
   
+def excluir():
+  global indice_selecionado
+
 
 def incluir():
   #contato = {}
@@ -78,42 +86,55 @@ def dados_lista_box():
   for item in agenda:
     lista.insert(tk.END, str(item))
 
+def selecionar_contato(event):
+  global indice_selecionado
+  indice_selecionado = lista.curselection()[0]
+  print(indice_selecionado)
+
 def interface():
   global entry_nome, entry_celular, entry_email, lista
 
-  quadro = tk.Frame(janela)
+  quadro = tk.CTkFrame(janela)
   quadro.pack(padx=20, pady=20, fill="both", expand=True)
 
-  label_nome = tk.Label(quadro, text="Nome:")
+  label_nome = tk.CTkLabel(quadro, text="Nome:")
   label_nome.pack(padx=20, pady=(10, 0), anchor='w')
-  entry_nome = tk.Entry(quadro, width=50)
+  entry_nome = tk.CTkEntry(quadro, width=350)
   entry_nome.pack(padx=20)
 
-  label_celular = tk.Label(quadro, text="Celular:")
+  label_celular = tk.CTkLabel(quadro, text="Celular:")
   label_celular.pack(padx=20, pady=(10, 0), anchor='w')
-  entry_celular = tk.Entry(quadro, width=50)
+  entry_celular = tk.CTkEntry(quadro, width=350)
   entry_celular.pack(padx=20)
 
-  label_email = tk.Label(quadro, text="E-mail:")
+  label_email = tk.CTkLabel(quadro, text="E-mail:")
   label_email.pack(padx=20, pady=(10, 0), anchor='w')
-  entry_email = tk.Entry(quadro, width=50)
+  entry_email = tk.CTkEntry(quadro, width=350)
   entry_email.pack(padx=20)
 
-  frame_botoes = tk.Frame(quadro)
+  frame_botoes = tk.CTkFrame(quadro)
   frame_botoes.pack()
 
-  botao_incluir = tk.Button(frame_botoes, text="Incluir", command=incluir)
-  botao_buscar = tk.Button(frame_botoes, text="Buscar", command=buscar)
+  botao_incluir = tk.CTkButton(frame_botoes, text="Incluir", command=incluir)
+  botao_buscar = tk.CTkButton(frame_botoes, text="Buscar", command=buscar)
+  botao_editar = tk.CTkButton(frame_botoes, text='Editar')
+  botao_excluir = tk.CTkButton(frame_botoes, text='Excluir', command=excluir)
 
   botao_incluir.grid(row=0, column=0, padx=10, pady=10)
   botao_buscar.grid(row=0, column=1, padx=10, pady=10)
+  botao_editar.grid(row=1, column=0, padx=10, pady=10)
+  botao_excluir.grid(row=1, column=1, padx=10, pady=10)
 
-  lista = tk.Listbox(quadro, width=50)
-  lista.pack(pady=(20, 0))
+  lista = Listbox(quadro, width=38,
+                  font=("Verdana", 12),
+                  bg=quadro.cget("fg_color")[0],
+                  bd=0)
+  lista.pack(pady=10, padx=10)
+  lista.bind('<<ListboxSelect>>', selecionar_contato)
 
 
 def main():
-  janela = tk.Tk()
+  janela = tk.CTk()
   janela.title("Agenda de Contatos")
   interface()
   carga()
