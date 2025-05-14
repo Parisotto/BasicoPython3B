@@ -1,3 +1,6 @@
+# import sys
+# print(sys.executable)
+
 # 1.Adicione o número 50 ao final da lista.
 lista_numeros = [10, 20, 30, 40]
 lista_numeros.append(50)
