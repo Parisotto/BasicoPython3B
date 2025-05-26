@@ -30,10 +30,52 @@ class Calculadora(ctk.CTk):
       self.cursor_visivel = not self.cursor_visivel
       self.after(500, self.piscar_cursor)
 
+  def inserir(self, valor):
+    if self.cursor_ativo:
+      self.resultado.set("")
+      self.cursor_ativo = False
+
+    if valor == "C":
+      self.resultado.set(".")
+      self.cursor_ativo = True
+      self.piscar_cursor()
+    elif valor == "<":
+      texto_atual = self.resultado.get()[:-1]
+      if texto_atual == "":
+        self.cursor_ativo = True
+        self.resultado.set(".")
+        self.piscar_cursor()
+      else:
+        self.resultado.set(texto_atual)
+    elif valor == "=":
+      expressao = self.resultado.get()
+      expressao = expressao.replace("X", "*")
+      try:
+        res = eval(expressao)
+        self.resultado.set(str(res))
+      except:
+        messagebox.showerror("Erro!", "Expressão inválida.")
+    else:
+      self.resultado.set(self.resultado.get() + valor)
+      self.ajustar()
+
+  def ajustar(self):
+    texto = self.resultado.get()
+    comprimento = len(texto)
+    if comprimento < 8:
+      tamanho = 100
+    elif comprimento < 12:
+      tamanho = 60
+    elif comprimento < 18:
+      tamanho = 40
+    else:
+      tamanho = 30
+
+    self.display.configure(font=("Ariel", tamanho))
 
   def interface(self):
-    self.display = ctk.CTkEntry(self, textvariable=self.resultado, font=("Arial", 100), text_color="green",
-                                fg_color="#90ee90", justify="right")
+    self.display = ctk.CTkEntry(self, textvariable=self.resultado, font=("Arial", 100), text_color="green", fg_color="#90ee90", justify="right", height=120)
+
     self.display.grid(row=0, column=0, columnspan=4, padx=5, sticky="ew")
     self.display.bind("<Button-1>", lambda e: "break")
 
@@ -47,7 +89,7 @@ class Calculadora(ctk.CTk):
 
     for linha, caracteres in enumerate(botoes):
       for coluna, c in enumerate(caracteres):
-        botao = ctk.CTkButton(self, text=c, font=("Arial", 20))
+        botao = ctk.CTkButton(self, text=c, font=("Arial", 20), command=lambda c=c: self.inserir(c))
         cs = rs = 1
         if c == "C":
           botao.configure(fg_color="red", hover_color="#cc0000")
